@@ -55,9 +55,14 @@ pip install py-tgcalls -U
 ```
 
 ## Conversion command (Video)
-From file to raw video
+From file to raw video (640p)
 ``` bash
 ffmpeg -i {INPUT_FILE} -f rawvideo -pix_fmt yuv420p -vf scale=640:-1 {OUTPUT_FILE}
+```
+
+From file to raw video (720p)
+``` bash
+ffmpeg -i {INPUT_FILE} -f rawvideo -pix_fmt yuv420p -vf scale=1280:-1 {OUTPUT_FILE}
 ```
 
 From H264/VP8/VP9 to Audio and Video
@@ -65,9 +70,9 @@ From H264/VP8/VP9 to Audio and Video
 ffmpeg -i {INPUT_FILE} -f s16le -ac 1 -ar {BITRATE} {OUTPUT_AUDIO_FILE} -f rawvideo -r {FRAMERATE} -pix_fmt yuv420p -vf scale={SCALING}:-1 {OUTPUT_VIDEO_FILE}
 ```
 
-From youtube video/live-stream to Audio and Video
+From youtube video/live-stream to Audio and Video (720p)
 ``` bash
-ffmpeg -i "$(youtube-dl -x -g "{YOUTUBE_LINK}")" -f s16le -ac 1 -ar {BITRATE} {OUTPUT_AUDIO_FILE} -f rawvideo -r {FRAMERATE} -pix_fmt yuv420p -vf scale={SCALING}:-1 {OUTPUT_VIDEO_FILE}
+ffmpeg -i "$(youtube-dl -g -f "best[height<=?720][width<=?1280]" "{YOUTUBE_LINK}")" -f s16le -ac 1 -ar {BITRATE} {OUTPUT_AUDIO_FILE} -f rawvideo -r {FRAMERATE} -pix_fmt yuv420p -vf scale={SCALING}:-1 {OUTPUT_VIDEO_FILE}
 ```
 
 From YouTube Live stream to Video
@@ -97,9 +102,9 @@ From stream link to raw format
 ffmpeg -y -i {STREAM_LINK} -f s16le -ac 1 -ar {BITRATE} {OUTPUT_FILE}
 ```
 
-From youtube video/live-stream to raw format
+From youtube video/live-stream to raw format (720p)
 ``` bash
-ffmpeg -i "$(youtube-dl -x -g "{YOUTUBE_LINK}")" -f s16le -ac 1 -ar {BITRATE} {OUTPUT_FILE}
+ffmpeg -i "$(youtube-dl -g -f "best[height<=?720][width<=?1280]" "{YOUTUBE_LINK}")" -f s16le -ac 1 -ar {BITRATE} {OUTPUT_FILE}
 ```
 
 ## Credits
